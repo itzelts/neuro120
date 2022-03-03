@@ -55,7 +55,7 @@
   "SoftwareVersions": "syngo_MR_E11",
   "SpacingBetweenSlices": 2,
   "StationName": "AWP166078",
-  "TaskName": "TODO: full task name for motor",
+  "TaskName": "Motor tasks of several major body parts, including toe, ankle, left leg, right leg, finger, wrist, forearm, upper arm, jaw, lip, tongue, eye",
   "TotalReadoutTime": 0.0534586,
   "dcmmeta_reorient_transform": [
     [0.0, -1.0, 0.0, 99.0],
