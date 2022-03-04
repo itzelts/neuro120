@@ -15,7 +15,7 @@
     "National Natural Science Foundation of China (Grant No. 31771251)"
   ],
   "HowToAcknowledge": "TODO: describe how to acknowledge -- either cite a corresponding paper, or just in acknowledgement section",
-  "License": "TODO: choose a license, e.g. PDDL (http://opendatacommons.org/licenses/pddl/)",
+  "License": "CC0",
   "Name": "WholebodySomatotopicMapping",
   "ReferencesAndLinks": []
 }
