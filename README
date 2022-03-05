@@ -1,35 +1,36 @@
 An fMRI dataset for whole-body somatotopic mapping in humans
 ====================
-Note: This dataset is compatible with the BIDS v1.3.0-dev as a standalone derivative dataset. 
-Due to that the OpenNeuro.org does not support the BIDs v1.3.0 yet ('desc-<label>' in file names), 
-a made-up subject 'sub-phantom' was created only to pass the data stucture validation for uploading dataset.
 
-Source data
-===========
-
-
+Raw data
+========
+A total of 62 healthy adults (34 females), ranging in age between 19 and 29 years (mean ¡À standard deviation[SD], 22.76 ¡À 2.22 years), participated in this study.
+Participants were instructed to perform movements of various body parts, including the toe, ankle, leg, finger, wrist, forearm, upper arm, jaw, lip, tongue, and eyes.
+MRI was performed on a Siemens 3 Tesla (3T) MAGNETOM Prisma MRI scanner at the BNU Imaging Center for Brain Research, Beijing, China, using a 64-channel phased-array head coil.
 
 Pipeline description
 ====================
+1. The DICOM images acquired from the Siemens scanner were converted into the NIfTI format and then reorganized into the BIDS using HeuDiConv (https://github.com/nipy/heudiconv).
+2. The NIfTI images were anonymized by removing facial features using the PyDeface (https://github.com/poldracklab/pydeface).
+3. The data were preprocessed using fMRIPrep 20.2.1 (https://fmriprep.org).
+4. A spatial ICA was performed on each run from each participant in the individual native space using MELODIC (version 3.15) from the FSL with default parameters. Artifact-related ICs and signal ICs were manually identified according to their spatial maps, time courses, and power spectrum of the time courses using melview (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Melview).
+5. The manually denoised data were adapted to a CIFTI-based grayordinate format using Ciftify (https://github.com/edickie/ciftify).
 
-
-
-Dataset content overview
-========================
-Raw structural MRI: <Sub-ID>/ses-1/anat/<SUB-ID>_ses-1_run-01_T1w_defaced.nii.gz
-Raw functional MRI: <Sub-ID>/ses-1/func/<Sub-ID>_ses-1_task-motor_<Run-ID>_bold.nii.gz
-field mapping: <Sub-ID>/ses-1/fmap/<Sub-ID>_ses-1_run-01_<magnitude/phasediff>. nii.gz
+Data records
+============
+Raw data
+Structural MRI: <Sub-ID>/ses-1/anat/<SUB-ID>_ses-1_run-01_T1w.nii.gz
+Functional MRI: <Sub-ID>/ses-1/func/<Sub-ID>_ses-1_task-motor_<Run-ID>_bold.nii.gz
+Field mapping: <Sub-ID>/ses-1/fmap/<Sub-ID>_ses-1_run-01_<magnitude/phasediff>.nii.gz
 
 Preprocessed data
-Preprocessed structural MRI: derivatives/fmriprep/<Sub-ID>/ses-1/anat/<Sub-ID>_ses-1_<Run-ID>_desc-preproc_T1w.nii.gz
-Preprocessed functional MRI: derivatives/fmriprep/<Sub-ID>/ses-1/func/<Sub-ID>_ses-1_task-motor_<Run-ID>_space-T1w_desc-preproc_bold.nii.gz
+Preprocessed functional MRI: derivatives/fmriprep/<Sub-ID>/<Sub-ID>_ses-1_task-motor_<Run-ID>_space-T1w_desc-preproc_bold.nii.gz
 
 Manually denoised fMRI data
-Denoised fMRI: derivatives/fmriprep/<Sub-ID>/ses-1/func/<Sub-ID>_ses-1_task-motor_<Run-ID>_space-T1w_desc-preproc_bold_denoised.nii.gz
+Denoised fMRI: derivatives/fmriprep/<Sub-ID>/<Sub-ID>_ses-1_task-motor_<Run-ID>_space-T1w_desc-preproc_bold_denoised.nii.gz
 Spatial maps from ICA: derivatives/melodic/<Sub-ID>/ses-1/<Sub-ID>_ses-1_task-motor_<Run-ID>.ica/melodic_IC.nii.gz
 Time series from ICA: derivatives/melodic/<Sub-ID>/ses-1/<Sub-ID>_ses-1_task-motor_<Run-ID>.ica/melodic_mix
 Manually classified labels: derivatives/melodic/<Sub-ID>/ses-1/<Sub-ID>_ses-1_task-motor_<Run-ID>.ica/results_suggest.csv
 
 Brain activation data
-Native surface: derivatives/ciftify/<Sub-ID>/MNINonLinear/Native
-Results of task analysis: derivatives/ciftify/<Sub-ID>/MNINonLinear/Results
+Native surface: derivatives/ciftify/<Sub-ID>/native_surface
+Results of task analysis: derivatives/ciftify/<Sub-ID>/GLM
