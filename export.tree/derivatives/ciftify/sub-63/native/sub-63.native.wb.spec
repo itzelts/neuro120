@@ -1,1 +1,0 @@
-../../../../.git/annex/objects/ZV/Gg/MD5E-s3905--5dd9397b957bce1fb68a6111fccfe00f.wb.spec/MD5E-s3905--5dd9397b957bce1fb68a6111fccfe00f.wb.spec
