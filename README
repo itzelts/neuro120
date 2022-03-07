@@ -9,7 +9,7 @@ Participants were instructed to perform movements of various body parts, includi
 MRI was performed on a Siemens 3 Tesla (3T) MAGNETOM Prisma MRI scanner at the BNU Imaging Center for Brain Research, Beijing, China, using a 64-channel phased-array head coil.
 
 
-<i>Pipeline description</i>
+<i><b>Pipeline description</b></i>
 
 1. The DICOM images acquired from the Siemens scanner were converted into the NIfTI format and then reorganized into the BIDS using HeuDiConv (https://github.com/nipy/heudiconv).
 2. The NIfTI images were anonymized by removing facial features using the PyDeface (https://github.com/poldracklab/pydeface).
@@ -18,7 +18,7 @@ MRI was performed on a Siemens 3 Tesla (3T) MAGNETOM Prisma MRI scanner at the B
 5. The manually denoised data were adapted to a CIFTI-based grayordinate format using Ciftify (https://github.com/edickie/ciftify).
 
 
-<i>Data records</i>
+<i><b>Data records</b></i>
 Raw data
 Structural MRI: <Sub-ID>/ses-1/anat/<SUB-ID>_ses-1_run-01_T1w.nii.gz
 Functional MRI: <Sub-ID>/ses-1/func/<Sub-ID>_ses-1_task-motor_<Run-ID>_bold.nii.gz
