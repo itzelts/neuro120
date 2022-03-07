@@ -15,23 +15,23 @@ MRI was performed on a Siemens 3 Tesla (3T) MAGNETOM Prisma MRI scanner at the B
 
 
 ## Data records
-######Structural MRI  
+#### Structural MRI  
 <Sub-ID>/ses-1/anat/<SUB-ID>_ses-1_run-01_T1w.nii.gz  
-######Functional MRI  
+#### Functional MRI  
 <Sub-ID>/ses-1/func/<Sub-ID>_ses-1_task-motor_<Run-ID>_bold.nii.gz  
-######Field mapping  
+#### Field mapping  
 <Sub-ID>/ses-1/fmap/<Sub-ID>_ses-1_run-01_<magnitude/phasediff>.nii.gz  
-######Preprocessed functional MRI  
+#### Preprocessed functional MRI  
 derivatives/fmriprep/<Sub-ID>/<Sub-ID>_ses-1_task-motor_<Run-ID>_space-T1w_desc-preproc_bold.nii.gz  
-######Denoised fMRI  
+#### Denoised fMRI  
 derivatives/fmriprep/<Sub-ID>/<Sub-ID>_ses-1_task-motor_<Run-ID>_space-T1w_desc-preproc_bold_denoised.nii.gz  
-######Spatial maps from ICA  
+#### Spatial maps from ICA  
 derivatives/melodic/<Sub-ID>/ses-1/<Sub-ID>_ses-1_task-motor_<Run-ID>.ica/melodic_IC.nii.gz  
-######Time series from ICA  
+#### Time series from ICA  
 derivatives/melodic/<Sub-ID>/ses-1/<Sub-ID>_ses-1_task-motor_<Run-ID>.ica/melodic_mix  
-######Manually classified labels  
+#### Manually classified labels  
 derivatives/melodic/<Sub-ID>/ses-1/<Sub-ID>_ses-1_task-motor_<Run-ID>.ica/results_suggest.csv  
-######Native surface  
+#### Native surface  
 derivatives/ciftify/<Sub-ID>/native_surface  
-######Results of task analysis  
+#### Results of task analysis  
 derivatives/ciftify/<Sub-ID>/GLM  
