@@ -19,7 +19,7 @@ MRI was performed on a Siemens 3 Tesla (3T) MAGNETOM Prisma MRI scanner at the B
 
 
 <i><b>Data records</b></i>
-
+<p>
 <i>Raw data</i><br>
 Structural MRI: <Sub-ID>/ses-1/anat/<SUB-ID>_ses-1_run-01_T1w.nii.gz<br>
 Functional MRI: <Sub-ID>/ses-1/func/<Sub-ID>_ses-1_task-motor_<Run-ID>_bold.nii.gz<br>
