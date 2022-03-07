@@ -20,7 +20,7 @@ MRI was performed on a Siemens 3 Tesla (3T) MAGNETOM Prisma MRI scanner at the B
 
 <i><b>Data records</b></i>
 Raw data
-Structural MRI: <Sub-ID>/ses-1/anat/<SUB-ID>_ses-1_run-01_T1w.nii.gz
+Structural MRI: <Sub-ID>/ses-1/anat/<SUB-ID>_ses-1_run-01_T1w.nii.gz</br>
 Functional MRI: <Sub-ID>/ses-1/func/<Sub-ID>_ses-1_task-motor_<Run-ID>_bold.nii.gz
 Field mapping: <Sub-ID>/ses-1/fmap/<Sub-ID>_ses-1_run-01_<magnitude/phasediff>.nii.gz
 Preprocessed data
