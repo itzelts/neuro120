@@ -25,16 +25,16 @@ MRI was performed on a Siemens 3 Tesla (3T) MAGNETOM Prisma MRI scanner at the B
 **Results of task analysis**: derivatives/ciftify/<Sub-ID>/GLM
 
 ## Label of experimental conditions
-Fixation: 0
-Toe: 1
-Ankle: 2
-Left leg: 3
-Right leg: 4
-Forearm: 5
-Upper arm: 6
-Wrist: 7
-Finger: 8
-Eye: 9
-Jaw: 10
-Lip: 11
+Fixation: 0  
+Toe: 1  
+Ankle: 2  
+Left leg: 3  
+Right leg: 4  
+Forearm: 5  
+Upper arm: 6  
+Wrist: 7  
+Finger: 8  
+Eye: 9  
+Jaw: 10  
+Lip: 11  
 Tongue: 12
