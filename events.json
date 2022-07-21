@@ -1,0 +1,20 @@
+{
+    "trial_type": {
+        "LongName": "Experimental conditions",
+        "Description": "Specific movement requirements for each condition",
+        "Levels": {
+            "Toe movements": "Flex and extend the toes from both feet",
+            "Ankle movements": "Dorsiflex and release both ankles",
+            "Left leg movements": "Lift and lower the left leg (maximum 10°) with the leg, ankle, and toes straight.",
+            "Right leg movements": "Lift and lower the right leg (maximum 10°) with the leg, ankle, and toes straight.",
+            "Finger movements": "Clench and loose both fists.",
+            "Wrist movements": "Pitch and roll both wrists with clenched fists.",
+            "Forearm movements": "Pitch and roll both wrists with clenched fists.",
+            "Upper arm movements": "Lift and lower the upper arms (maximum 20°) with the upper arms, forearm, wrist, and toes straight.",
+            "Jaw movements": "Bite or twist jaws.",
+            "Lip movements": "Expand and contract the lips with the teeth being bitten and tongue still.",
+            "Tongue movements": "Circular tongue with the teeth being bitten and lips closed.",
+            "Eye movements": "Blink or saccade eyes.",
+        }
+    }
+}

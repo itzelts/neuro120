@@ -25,7 +25,7 @@
   "InPlanePhaseEncodingDirectionDICOM": "COL",
   "InstitutionAddress": "Street_StreetNo_Bei_Jing_District_CN_ZIP",
   "InstitutionName": "BeiJing_Normal_University",
-  "InstitutionalDepartmentName": "Department",
+  "InstitutionalDepartmentName": "Department_of_Psychology",
   "MRAcquisitionType": "2D",
   "MagneticFieldStrength": 3,
   "Manufacturer": "Siemens",
@@ -55,7 +55,7 @@
   "SoftwareVersions": "syngo_MR_E11",
   "SpacingBetweenSlices": 2,
   "StationName": "AWP166078",
-  "TaskName": "Motor tasks of several major body parts, including toe, ankle, left leg, right leg, finger, wrist, forearm, upper arm, jaw, lip, tongue, eye",
+  "TaskName": "Motor tasks of several major body parts, including toe, ankle, left leg, right leg, finger, wrist, forearm, upper arm, jaw, lip, tongue and eye",
   "TotalReadoutTime": 0.0534586,
   "dcmmeta_reorient_transform": [
     [0.0, -1.0, 0.0, 99.0],

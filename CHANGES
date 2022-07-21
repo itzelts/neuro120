@@ -1,11 +1,6 @@
 2.0.1 2022-07-20
   - 2022-7-20
-1.0.3 2022-03-31
-  - stable version
 2.0.0 2022-03-31
   - stable version
-0.0.1  Initial data acquired
-TODOs:
-	- verify and possibly extend information in participants.tsv (see for example http://datasets.datalad.org/?dir=/openfmri/ds000208)
-	- fill out dataset_description.json, README, sourcedata/README (if present)
-	- provide _events.tsv file for each _bold.nii.gz with onsets of events (see  '8.5 Task events'  of BIDS specification)
+1.0.3 2022-03-31
+  - stable version
