@@ -1,30 +1,30 @@
 onset	duration	trial_type
-0	16	0
-16	16	9
-32	16	1
-48	16	11
-64	16	5
-80	16	3
-96	16	7
-112	16	0
-128	16	6
-144	16	2
-160	16	8
-176	16	10
-192	16	12
-208	16	4
-224	16	0
-240	16	4
-256	16	12
-272	16	10
-288	16	8
-304	16	2
-320	16	6
-336	16	0
-352	16	7
-368	16	3
-384	16	5
-400	16	11
-416	16	1
-432	16	9
-448	16	0
+0	16	Rest
+16	16	Eye movements
+32	16	Toe movements
+48	16	Lip movements
+64	16	Forearm movements
+80	16	Left leg movements
+96	16	Wrist movements
+112	16	Rest
+128	16	Upper arm movements
+144	16	Ankle movements
+160	16	Finger movements
+176	16	Jaw movements
+192	16	Tongue movements
+208	16	Right leg movements
+224	16	Rest
+240	16	Right leg movements
+256	16	Tongue movements
+272	16	Jaw movements
+288	16	Finger movements
+304	16	Ankle movements
+320	16	Upper arm movements
+336	16	Rest
+352	16	Wrist movements
+368	16	Left leg movements
+384	16	Forearm movements
+400	16	Lip movements
+416	16	Toe movements
+432	16	Eye movements
+448	16	Rest
