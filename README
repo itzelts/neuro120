@@ -1,4 +1,9 @@
 # An fMRI dataset for whole-body somatotopic mapping in humans
+(Data: https://openneuro.org/datasets/ds004044/versions/2.0.3)
+
+# Human Coritical Parcellations 
+(Data and Documentation: https://balsa.wustl.edu/reference/6V6gD)
+# relevant file: ('Q1-Q6_RelatedValidation210.CorticalAreas_dil_Final_Final_Areas_Group_Colors.32k_fs_LR.dlabel.nii')
 
 ## Raw data
 A total of 62 healthy adults (34 females), ranging in age between 19 and 29 years (mean ± standard deviation[SD], 22.76 ± 2.22 years), participated in this study.
