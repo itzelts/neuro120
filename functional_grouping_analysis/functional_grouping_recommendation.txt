@@ -1,0 +1,67 @@
+# Functional Grouping Analysis and Recommendations
+
+## Dataset Overview
+This analysis is based on RSA results from 56 subjects across 4 ROIs.
+ROIs analyzed: M1, SMA, PMC, PPC
+
+## Current Functional Groupings
+- Group_1: M1, SMA
+- Group_2: PMC, PPC
+
+Quality of current groupings:
+- Adjacency correlation: -0.2270
+- Functional correlation: -0.0465
+- Average quality: -0.1368
+
+## ROI Correlation Analysis
+### Adjacency Correlation Matrix:
+ROI        M1       PMC       PPC       SMA
+ROI                                        
+M1   1.000000  0.684732  0.298607  0.196912
+PMC  0.684732  1.000000  0.239257  0.238435
+PPC  0.298607  0.239257  1.000000  0.558733
+SMA  0.196912  0.238435  0.558733  1.000000
+
+### Functional Correlation Matrix:
+ROI        M1       PMC       PPC       SMA
+ROI                                        
+M1   1.000000  0.585424  0.464315  0.271721
+PMC  0.585424  1.000000  0.524081  0.231263
+PPC  0.464315  0.524081  1.000000  0.496760
+SMA  0.271721  0.231263  0.496760  1.000000
+
+### Combined Correlation Matrix:
+ROI        M1       PMC       PPC       SMA
+ROI                                        
+M1   1.000000  0.635078  0.381461  0.234317
+PMC  0.635078  1.000000  0.381669  0.234849
+PPC  0.381461  0.381669  1.000000  0.527746
+SMA  0.234317  0.234849  0.527746  1.000000
+
+## Suggested Alternative Groupings
+
+### Adjacency-based grouping (2 clusters):
+- Group_2: M1, PMC
+- Group_1: PPC, SMA
+Quality score: 0.3784
+
+### Functional-based grouping (2 clusters):
+- Group_2: M1, PMC
+- Group_1: PPC, SMA
+Quality score: 0.1682
+
+### Combined-based grouping (2 clusters):
+- Group_2: M1, PMC
+- Group_1: PPC, SMA
+Quality score: 0.1682
+
+## Final Recommendation
+Based on comprehensive analysis of both adjacency and functional correlation patterns, the Adjacency Suggested provides the optimal functional organization with a quality score of 0.2733.
+
+### Recommended Functional Grouping:
+- Group_2: M1, PMC
+- Group_1: PPC, SMA
+
+## Neuroanatomical Interpretation
+
+These groupings reflect the functional organization of the motor network, where regions with similar roles in motor control and planning tend to show similar correlation patterns across subjects.
