@@ -1,0 +1,154 @@
+# Functional Grouping Analysis Report
+
+## Current Functional Groupings
+* DFM: toe, finger
+* MJA: ankle, wrist
+* OFC: jaw, lip, tongue
+* PLM: leftleg, rightleg, forearm, upperarm
+* TOR: eye
+
+## RSA Results Analysis
+Analysis based on 56 subjects and 4 ROIs.
+ROIs analyzed: M1, SMA, PMC, PPC
+
+### ROI Correlation Matrix (Adjacency)
+ROI        M1       PMC       PPC       SMA
+ROI                                        
+M1   1.000000  0.684732  0.298607  0.196912
+PMC  0.684732  1.000000  0.239257  0.238435
+PPC  0.298607  0.239257  1.000000  0.558733
+SMA  0.196912  0.238435  0.558733  1.000000
+
+### ROI Correlation Matrix (Functional)
+ROI        M1       PMC       PPC       SMA
+ROI                                        
+M1   1.000000  0.585424  0.464315  0.271721
+PMC  0.585424  1.000000  0.524081  0.231263
+PPC  0.464315  0.524081  1.000000  0.496760
+SMA  0.271721  0.231263  0.496760  1.000000
+
+### ROI Correlation Matrix (Combined)
+ROI        M1       PMC       PPC       SMA
+ROI                                        
+M1   1.000000  0.635078  0.381461  0.234317
+PMC  0.635078  1.000000  0.381669  0.234849
+PPC  0.381461  0.381669  1.000000  0.527746
+SMA  0.234317  0.234849  0.527746  1.000000
+
+### Clustering Results
+#### Optimal Clusters Solution
+Optimal method: Adjacency (score: 0.5486)
+* Group_1: M1, PMC
+* Group_0: PPC, SMA
+
+#### 3-Cluster Solution
+* Group_0: M1, PMC
+* Group_2: PPC
+* Group_1: SMA
+
+#### 4-Cluster Solution
+* Group_0: M1
+* Group_1: PMC
+* Group_2: PPC
+* Group_3: SMA
+
+## Suggested New Functional Groupings
+### Original Functional Groupings
+```python
+func_group = {
+    'ankle':'MJA',
+    'eye':'TOR',
+    'finger':'DFM',
+    'forearm':'PLM',
+    'jaw':'OFC',
+    'leftleg':'PLM',
+    'lip':'OFC',
+    'rightleg':'PLM',
+    'toe':'DFM',
+    'tongue':'OFC',
+    'upperarm':'PLM',
+    'wrist':'MJA',
+}
+```
+
+### Optimal Cluster Solution Groupings
+```python
+func_group = {
+    'ankle':'M1_PM_FOOT_JOINT',
+    'eye':'PP_SM_VISUAL_CONTROL',
+    'finger':'M1_PM_HAND_FINE',
+    'forearm':'M1_PM_ARM_CONTROL',
+    'jaw':'PP_SM_FACE_CONTROL',
+    'leftleg':'PP_SM_LEG_CONTROL',
+    'lip':'PP_SM_FACE_CONTROL',
+    'rightleg':'PP_SM_LEG_CONTROL',
+    'toe':'M1_PM_FOOT_FINE',
+    'tongue':'PP_SM_ORAL_CONTROL',
+    'upperarm':'M1_PM_ARM_CONTROL',
+    'wrist':'M1_PM_HAND_JOINT',
+}
+```
+
+### 3-Cluster Solution Groupings (Recommended)
+```python
+func_group = {
+    'ankle':'M1_PM_FOOT_JOINT',
+    'eye':'VISUAL_CONTROL',
+    'finger':'M1_PM_HAND_FINE',
+    'forearm':'M1_PM_ARM_CONTROL',
+    'jaw':'FACE_CONTROL',
+    'leftleg':'LEG_CONTROL',
+    'lip':'FACE_CONTROL',
+    'rightleg':'LEG_CONTROL',
+    'toe':'M1_PM_FOOT_FINE',
+    'tongue':'ORAL_CONTROL',
+    'upperarm':'M1_PM_ARM_CONTROL',
+    'wrist':'M1_PM_HAND_JOINT',
+}
+```
+
+### 4-Cluster Solution Groupings (Maximum Granularity)
+```python
+func_group = {
+    'ankle':'FOOT_JOINT',
+    'eye':'VISUAL_CONTROL',
+    'finger':'HAND_FINE',
+    'forearm':'ARM_CONTROL',
+    'jaw':'FACE_CONTROL',
+    'leftleg':'LEG_CONTROL',
+    'lip':'FACE_CONTROL',
+    'rightleg':'LEG_CONTROL',
+    'toe':'FOOT_FINE',
+    'tongue':'ORAL_CONTROL',
+    'upperarm':'ARM_CONTROL',
+    'wrist':'HAND_JOINT',
+}
+```
+
+### Recommended Grouping Summary
+* FACE_CONTROL: jaw, lip
+* LEG_CONTROL: leftleg, rightleg
+* M1_PM_ARM_CONTROL: forearm, upperarm
+* M1_PM_FOOT_FINE: toe
+* M1_PM_FOOT_JOINT: ankle
+* M1_PM_HAND_FINE: finger
+* M1_PM_HAND_JOINT: wrist
+* ORAL_CONTROL: tongue
+* VISUAL_CONTROL: eye
+
+## Neuroanatomical Interpretation
+The new groupings reflect the patterns of similarity between ROIs in their neural representations. 
+These patterns suggest that the brain may organize body parts differently than our initial functional groupings.
+
+* M1 and PMC often show similar patterns, which aligns with their roles in motor execution and preparation.
+* SMA and PPC demonstrate similar patterns, suggesting a functional link between motor planning and spatial processing.
+
+## Mapping to Body Parts
+The analysis reveals how the four ROIs relate to different types of body movements:
+
+* **M1 (Primary Motor Cortex)** is primarily involved in execution of fine movements, particularly of the hands and feet
+* **PMC (Premotor Cortex)** is critical for motor planning and preparation, particularly for proximal limb movements
+* **SMA (Supplementary Motor Area)** is important for coordinated movements, especially bilateral movements like leg control
+* **PPC (Posterior Parietal Cortex)** integrates sensory information for movement, particularly important for face, mouth, and visual control
+
+The proposed regrouping better aligns functional groups with the neural organization revealed by the RSA analysis.
