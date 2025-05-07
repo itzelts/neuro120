@@ -45,7 +45,7 @@ results_dir.mkdir(exist_ok=True)
 # plt.show()
 
 # ----------------------------------------------------------------------------
-# Part 2: Define Body Parts & Theoretical RDMs
+# Define Body Parts & Theoretical RDMs
 # ----------------------------------------------------------------------------
 part_to_file = {
     'toe':      'Toe',
