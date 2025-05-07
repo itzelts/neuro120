@@ -303,7 +303,7 @@ for roi, rdm in avg_rdms.items():
     plt.figure(figsize=(6,6))
     for i, part in enumerate(parts):
         plt.scatter(coords2d[i,0], coords2d[i,1], color=colors[func_group[part]],
-                    edgecolor='k', s=80)
+                    edgecolor='k', s=150)
         plt.text(coords2d[i,0], coords2d[i,1], part, ha='center', va='center')
     patches = [Patch(facecolor=c, label=g) for g,c in colors.items()]
     plt.legend(handles=patches, title='Func Groups')
