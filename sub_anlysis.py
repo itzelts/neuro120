@@ -82,19 +82,34 @@ dist_mat = squareform(pdist([[coords[p]] for p in parts]))
 adjacency_rdm = dist_mat / dist_mat.max()
 
 # functional groups to func RDM
+# func_group = {
+#     'toe':'DFM',
+#     'finger':'DFM',
+#     'ankle':'MJA',
+#     'wrist':'MJA',
+#     'leftleg':'PLM',
+#     'rightleg':'PLM',
+#     'forearm':'PLM',
+#     'upperarm':'PLM',
+#     'jaw':'OFC',
+#     'lip':'OFC',
+#     'tongue':'OFC',
+#     'eye':'TOR'
+# }
+
 func_group = {
-    'toe':'DFM',
-    'finger':'DFM',
-    'ankle':'MJA',
-    'wrist':'MJA',
-    'leftleg':'PLM',
-    'rightleg':'PLM',
-    'forearm':'PLM',
-    'upperarm':'PLM',
-    'jaw':'OFC',
-    'lip':'OFC',
-    'tongue':'OFC',
-    'eye':'TOR'
+    'ankle':'FOOT_JOINT',
+    'eye':'VISUAL_CONTROL',
+    'finger':'HAND_FINE',
+    'forearm':'ARM_CONTROL',
+    'jaw':'FACE_CONTROL',
+    'leftleg':'LEG_CONTROL',
+    'lip':'FACE_CONTROL',
+    'rightleg':'LEG_CONTROL',
+    'toe':'FOOT_FINE',
+    'tongue':'ORAL_CONTROL',
+    'upperarm':'ARM_CONTROL',
+    'wrist':'HAND_JOINT',
 }
 func_rdm = np.zeros((len(parts), len(parts)))
 for i, p1 in enumerate(parts):
@@ -297,7 +312,8 @@ for roi in summary['ROI']:
 # ----------------------------------------------------------------------------
 # MDS & Hierarchical difference
 # ----------------------------------------------------------------------------
-colors = {'DFM':'red','MJA':'blue','PLM':'green','OFC':'purple','TOR':'orange'}
+colors = { 'FOOT_JOINT': 'red', 'VISUAL_CONTROL': 'blue', 'HAND_FINE': 'green', 'ARM_CONTROL' :  'purble', 'FACE_CONTROL':'orage', 'LEG_CONTROL' : 'black', 'FOOT_FINE': 'grey', 'ORAL_CONTROL': 'yellow', 'HAND_JOINT': 'pink' }
+# colors = {'DFM':'red','MJA':'blue','PLM':'green','OFC':'purple','TOR':'orange'}
 for roi, rdm in avg_rdms.items():
     coords2d = MDS(n_components=2, dissimilarity='precomputed', random_state=0).fit_transform(rdm)
     plt.figure(figsize=(6,6))
