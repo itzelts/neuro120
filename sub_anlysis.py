@@ -14,6 +14,7 @@ from nilearn.glm.first_level import make_first_level_design_matrix
 from sklearn.manifold import MDS
 from matplotlib.patches import Patch
 import hcp_utils as hcp
+from scipy.spatial import procrustes
 
 # ----------------------------------------------------------------------------
 # Settings and File Paths
@@ -357,3 +358,92 @@ for _, row in summary.iterrows():
     better = 'Anatomical' if row['adjacency_mean']>row['functional_mean'] else 'Functional'
     print(f" - {row['ROI']}: {better} wins ({row['adjacency_mean']:.3f} vs {row['functional_mean']:.3f})")
 print('Supports hierarchical transformation from M1 → PPC.')
+
+# ----------------------------------------------------------------------------
+# Procrustes analysis
+# ----------------------------------------------------------------------------
+# First, generate ideal MDS configurations for the theoretical models
+anatomical_rdm = adjacency_rdm
+functional_rdm = func_rdm
+
+# Get 2D coordinates from the theoretical models
+anatomical_mds = MDS(n_components=2, dissimilarity='precomputed', random_state=0).fit_transform(anatomical_rdm)
+functional_mds = MDS(n_components=2, dissimilarity='precomputed', random_state=0).fit_transform(functional_rdm)
+
+# Compare each ROI's MDS with the theoretical MDSs
+results = {}
+for roi, rdm in avg_rdms.items():
+    # Get actual MDS coordinates for this ROI
+    roi_mds = MDS(n_components=2, dissimilarity='precomputed', random_state=0).fit_transform(rdm)
+    
+    # Compute Procrustes similarity with anatomical model
+    _, _, anatomical_corr = procrustes(anatomical_mds, roi_mds)
+    # Convert to similarity (1 = identical, 0 = completely different)
+    anatomical_sim = 1 - anatomical_corr
+    
+    # Compute Procrustes similarity with functional model
+    _, _, functional_corr = procrustes(functional_mds, roi_mds)
+    functional_sim = 1 - functional_corr
+    
+    # Save results
+    results[roi] = {
+        'anatomical_similarity': anatomical_sim,
+        'functional_similarity': functional_sim,
+        'functional_dominance': functional_sim - anatomical_sim
+    }
+
+# Create a dataframe for easier analysis
+procrustes_df = pd.DataFrame(results).T
+procrustes_df = procrustes_df.reindex(['M1', 'SMA', 'PMC', 'PPC'])
+
+# Plot the results - showing transition from anatomical to functional organization
+plt.figure(figsize=(10, 6))
+x = np.arange(len(procrustes_df))
+width = 0.35
+
+plt.bar(x - width/2, procrustes_df['anatomical_similarity'], width, label='Anatomical Similarity', color='blue', alpha=0.7)
+plt.bar(x + width/2, procrustes_df['functional_similarity'], width, label='Functional Similarity', color='red', alpha=0.7)
+
+plt.axhline(0, color='k', linestyle='--', alpha=0.3)
+plt.xlabel('ROI (Hierarchical Order)')
+plt.ylabel('Similarity to Theoretical Model')
+plt.title('Transition from Anatomical to Functional Organization')
+plt.xticks(x, procrustes_df.index)
+plt.legend()
+plt.grid(axis='y', alpha=0.3)
+
+# Add similarity values as text on the plot
+for i, roi in enumerate(procrustes_df.index):
+    anat_val = procrustes_df.loc[roi, 'anatomical_similarity']
+    func_val = procrustes_df.loc[roi, 'functional_similarity']
+    plt.text(i - width/2, anat_val + 0.01, f"{anat_val:.2f}", ha='center')
+    plt.text(i + width/2, func_val + 0.01, f"{func_val:.2f}", ha='center')
+
+plt.tight_layout()
+plt.savefig(results_dir / 'anatomical_functional_similarity.png', dpi=300)
+
+# Also add the similarity index to the original MDS plots
+for roi, rdm in avg_rdms.items():
+    coords2d = MDS(n_components=2, dissimilarity='precomputed', random_state=0).fit_transform(rdm)
+    plt.figure(figsize=(6,6))
+    for i, part in enumerate(parts):
+        plt.scatter(coords2d[i,0], coords2d[i,1], color=colors[func_group[part]],
+                    edgecolor='k', s=150)
+        plt.text(coords2d[i,0], coords2d[i,1], part, ha='center', va='center')
+    
+    # Add the similarity metrics to the plot
+    anat_sim = procrustes_df.loc[roi, 'anatomical_similarity']
+    func_sim = procrustes_df.loc[roi, 'functional_similarity']
+    plt.annotate(f"Anatomical similarity: {anat_sim:.2f}\nFunctional similarity: {func_sim:.2f}",
+                xy=(0.05, 0.95), xycoords='axes fraction', 
+                bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8))
+    
+    patches = [Patch(facecolor=c, label=g) for g,c in colors.items()]
+    plt.legend(handles=patches, title='Func Groups')
+    plt.title(f'MDS: {roi}')
+    plt.tight_layout()
+    plt.savefig(results_dir / f'mds_{roi}_with_metrics.png', dpi=300)
+    plt.close()
+
+# Save the procrustes similarity results
+procrustes_df.to_csv(results_dir / 'procrustes_similarity.csv')
