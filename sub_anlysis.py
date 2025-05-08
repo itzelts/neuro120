@@ -76,20 +76,20 @@ adjacency_rdm = dist_mat / dist_mat.max()
 #     'eye':'TOR'
 # }
 
-# func_group = { # by goal
-#     'toe': 'BALANCE',        # Balance and stability
-#     'finger': 'MANIPULATION', # Object manipulation/precision
-#     'ankle': 'LOCOMOTION',    # Walking/running
-#     'wrist': 'MANIPULATION',  # Object handling/gesturing
-#     'leftleg': 'LOCOMOTION',  # Ambulation
-#     'rightleg': 'LOCOMOTION', # Ambulation
-#     'forearm': 'REACHING',    # Extending to objects
-#     'upperarm': 'REACHING',   # Gross arm positioning
-#     'jaw': 'INGESTION',       # Eating
-#     'lip': 'COMMUNICATION',   # Speech/expression
-#     'tongue': 'DUAL',         # Both speech and ingestion
-#     'eye': 'PERCEPTION'       # Visual targeting
-# }
+func_group = { # by goal
+    'toe': 'BALANCE',        # Balance and stability
+    'finger': 'MANIPULATION', # Object manipulation/precision
+    'ankle': 'LOCOMOTION',    # Walking/running
+    'wrist': 'MANIPULATION',  # Object handling/gesturing
+    'leftleg': 'LOCOMOTION',  # Ambulation
+    'rightleg': 'LOCOMOTION', # Ambulation
+    'forearm': 'REACHING',    # Extending to objects
+    'upperarm': 'REACHING',   # Gross arm positioning
+    'jaw': 'INGESTION',       # Eating
+    'lip': 'COMMUNICATION',   # Speech/expression
+    'tongue': 'DUAL',         # Both speech and ingestion
+    'eye': 'PERCEPTION'       # Visual targeting
+}
 
 # func_group = { # by coordination
 #     'toe': 'FOOT_COMPLEX',       # Toes work with ankles
@@ -106,20 +106,20 @@ adjacency_rdm = dist_mat / dist_mat.max()
 #     'eye': 'VISUO_MOTOR'         # Eye-hand coordination
 # }
 
-func_group = { # by task
-    'toe': 'PRECISION_LOWER',    # Fine control of foot placement
-    'finger': 'PRECISION_UPPER', # Detailed manipulation
-    'ankle': 'STABILITY_LOWER',  # Lower limb stability
-    'wrist': 'STABILITY_UPPER',  # Upper limb stability
-    'leftleg': 'POWER_LOWER',    # Force generation/support
-    'rightleg': 'POWER_LOWER',   # Force generation/support
-    'forearm': 'POWER_UPPER',    # Force application
-    'upperarm': 'POWER_UPPER',   # Force application
-    'jaw': 'CONSUMPTIVE',        # Food processing
-    'lip': 'EXPRESSIVE',         # Emotional display
-    'tongue': 'SENSORY_ORAL',    # Taste and texture sensing
-    'eye': 'SENSORY_VISUAL'      # Visual information
-}
+# func_group = { # by task
+#     'toe': 'PRECISION_LOWER',    # Fine control of foot placement
+#     'finger': 'PRECISION_UPPER', # Detailed manipulation
+#     'ankle': 'STABILITY_LOWER',  # Lower limb stability
+#     'wrist': 'STABILITY_UPPER',  # Upper limb stability
+#     'leftleg': 'POWER_LOWER',    # Force generation/support
+#     'rightleg': 'POWER_LOWER',   # Force generation/support
+#     'forearm': 'POWER_UPPER',    # Force application
+#     'upperarm': 'POWER_UPPER',   # Force application
+#     'jaw': 'CONSUMPTIVE',        # Food processing
+#     'lip': 'EXPRESSIVE',         # Emotional display
+#     'tongue': 'SENSORY_ORAL',    # Taste and texture sensing
+#     'eye': 'SENSORY_VISUAL'      # Visual information
+# }
 
 func_rdm = np.zeros((len(parts), len(parts)))
 for i, p1 in enumerate(parts):

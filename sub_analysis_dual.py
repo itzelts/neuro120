@@ -20,7 +20,9 @@ bids_root   = pathlib.Path('.')
 first_sub   = 'sub-01'
 events_path = bids_root / first_sub / 'ses-1' / 'func' / f'{first_sub}_ses-1_task-motor_run-01_events.tsv'
 
-results_dir = pathlib.Path('results/goal_dual')
+# results_dir = pathlib.Path('results/goal_dual')
+# results_dir.mkdir(exist_ok=True)
+results_dir = pathlib.Path('results/coordination_dual')
 results_dir.mkdir(exist_ok=True)
 
 # body parts 
@@ -61,35 +63,35 @@ adjacency_rdm = dist_mat / dist_mat.max()
 # functional groups to func RDM
 
 # coordination 
-# func_group = {
-#     'toe': ['FOOT_COMPLEX'],
-#     'finger': ['HAND_COMPLEX'],
-#     'ankle': ['FOOT_COMPLEX'],
-#     'wrist': ['HAND_COMPLEX'],
-#     'leftleg': ['POSTURAL'],
-#     'rightleg': ['POSTURAL'],
-#     'forearm': ['HAND_COMPLEX', 'ARM_CHAIN'],  # dual membership
-#     'upperarm': ['ARM_CHAIN'],
-#     'jaw': ['VOCAL_ARTICULATORY'],
-#     'lip': ['VOCAL_ARTICULATORY'],
-#     'tongue': ['VOCAL_ARTICULATORY'],
-#     'eye': ['VISUO_MOTOR' ]
-# }
-
 func_group = {
-    'toe': ['BALANCE', 'LOCOMOTION'],
-    'finger': ['MANIPULATION'],
-    'ankle': ['LOCOMOTION'],
-    'wrist': ['MANIPULATION'],
-    'leftleg': ['LOCOMOTION'],
-    'rightleg': ['LOCOMOTION'],
-    'forearm': ['REACHING'],
-    'upperarm': ['REACHING'],
-    'jaw': ['COMMUNICATION', 'INGESTION'],
-    'lip': ['COMMUNICATION'],
-    'tongue': ['COMMUNICATION', 'INGESTION'],
-    'eye': ['PERCEPTION' ]
+    'toe': ['FOOT_COMPLEX'],
+    'finger': ['HAND_COMPLEX'],
+    'ankle': ['FOOT_COMPLEX'],
+    'wrist': ['HAND_COMPLEX'],
+    'leftleg': ['POSTURAL'],
+    'rightleg': ['POSTURAL'],
+    'forearm': ['HAND_COMPLEX', 'ARM_CHAIN'],  # dual membership
+    'upperarm': ['ARM_CHAIN'],
+    'jaw': ['VOCAL_ARTICULATORY'],
+    'lip': ['VOCAL_ARTICULATORY'],
+    'tongue': ['VOCAL_ARTICULATORY'],
+    'eye': ['VISUO_MOTOR' ]
 }
+
+# func_group = {
+#     'toe': ['BALANCE', 'LOCOMOTION'],
+#     'finger': ['MANIPULATION'],
+#     'ankle': ['LOCOMOTION'],
+#     'wrist': ['MANIPULATION'],
+#     'leftleg': ['LOCOMOTION'],
+#     'rightleg': ['LOCOMOTION'],
+#     'forearm': ['REACHING'],
+#     'upperarm': ['REACHING'],
+#     'jaw': ['COMMUNICATION', 'INGESTION'],
+#     'lip': ['COMMUNICATION'],
+#     'tongue': ['COMMUNICATION', 'INGESTION'],
+#     'eye': ['PERCEPTION' ]
+# }
 
 def share_group(g1, g2):
     return bool(set(g1).intersection(g2))
@@ -244,15 +246,16 @@ plt.savefig(results_dir / 'average_neural_rdms.png', dpi=300)
 plt.close()
 
 # theoretical rdms
-# fig, axes = plt.subplots(1,2, figsize=(14,6))
-# sns.heatmap(adjacency_rdm, xticklabels=parts, yticklabels=parts,
-#             cmap='viridis', square=True, ax=axes[0])
-# axes[0].set_title("Anatomical Adjacency Model RDM")
-# sns.heatmap(func_rdm, xticklabels=parts, yticklabels=parts,
-#             cmap='viridis', square=True, ax=axes[1])
-# axes[1].set_title("Functional Similarity Model RDM")
-# plt.tight_layout()
-# plt.show()
+fig, axes = plt.subplots(1,2, figsize=(14,6))
+sns.heatmap(adjacency_rdm, xticklabels=parts, yticklabels=parts,
+            cmap='viridis', square=True, ax=axes[0])
+axes[0].set_title("Anatomical Adjacency Model RDM")
+sns.heatmap(func_rdm, xticklabels=parts, yticklabels=parts,
+            cmap='viridis', square=True, ax=axes[1])
+axes[1].set_title("Functional Similarity Model RDM")
+plt.tight_layout()
+plt.savefig(results_dir / 'theoretical_rdms.png', dpi=300)
+plt.close()
 
 # exploratory analysis 
 summary = df.groupby('ROI').agg(
@@ -294,25 +297,25 @@ for roi in summary['ROI']:
 #     'VISUO_MOTOR': 'brown'
 # }
 # coordination
-# colors = {
-#     'FOOT_COMPLEX': 'red',
-#     'HAND_COMPLEX': 'blue',
-#     'POSTURAL': 'green',
-#     'ARM_CHAIN': 'purple',
-#     'VISUO_MOTOR': 'orange',
-#     'VOCAL_ARTICULATORY': 'teal',
-# }
+colors = {
+    'FOOT_COMPLEX': 'red',
+    'HAND_COMPLEX': 'blue',
+    'POSTURAL': 'green',
+    'ARM_CHAIN': 'purple',
+    'VISUO_MOTOR': 'orange',
+    'VOCAL_ARTICULATORY': 'teal',
+}
 
 # goal
-colors = {
-    'BALANCE': 'red',
-    'LOCOMOTION': 'blue',
-    'MANIPULATION': 'green',
-    'REACHING': 'purple',
-    'COMMUNICATION': 'orange',
-    'INGESTION': 'teal',
-    'PERCEPTION': 'brown',
-}
+# colors = {
+#     'BALANCE': 'red',
+#     'LOCOMOTION': 'blue',
+#     'MANIPULATION': 'green',
+#     'REACHING': 'purple',
+#     'COMMUNICATION': 'orange',
+#     'INGESTION': 'teal',
+#     'PERCEPTION': 'brown',
+# }
 
 # colors = { 'FOOT_JOINT': 'red', 'VISUAL_CONTROL': 'blue', 'HAND_FINE': 'green', 'ARM_CONTROL' :  'purble', 'FACE_CONTROL':'orage', 'LEG_CONTROL' : 'black', 'FOOT_FINE': 'grey', 'ORAL_CONTROL': 'yellow', 'HAND_JOINT': 'pink' }
 # colors = {'DFM':'red','MJA':'blue','PLM':'green','OFC':'purple','TOR':'orange'}
