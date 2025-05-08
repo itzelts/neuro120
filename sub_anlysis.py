@@ -98,20 +98,51 @@ func_group = {
     'eye':'TOR'
 }
 
-# func_group = {
-#     'ankle':'FOOT_JOINT',
-#     'eye':'VISUAL_CONTROL',
-#     'finger':'HAND_FINE',
-#     'forearm':'ARM_CONTROL',
-#     'jaw':'FACE_CONTROL',
-#     'leftleg':'LEG_CONTROL',
-#     'lip':'FACE_CONTROL',
-#     'rightleg':'LEG_CONTROL',
-#     'toe':'FOOT_FINE',
-#     'tongue':'ORAL_CONTROL',
-#     'upperarm':'ARM_CONTROL',
-#     'wrist':'HAND_JOINT',
+# func_group = { # by goal
+#     'toe': 'BALANCE',        # Balance and stability
+#     'finger': 'MANIPULATION', # Object manipulation/precision
+#     'ankle': 'LOCOMOTION',    # Walking/running
+#     'wrist': 'MANIPULATION',  # Object handling/gesturing
+#     'leftleg': 'LOCOMOTION',  # Ambulation
+#     'rightleg': 'LOCOMOTION', # Ambulation
+#     'forearm': 'REACHING',    # Extending to objects
+#     'upperarm': 'REACHING',   # Gross arm positioning
+#     'jaw': 'INGESTION',       # Eating
+#     'lip': 'COMMUNICATION',   # Speech/expression
+#     'tongue': 'DUAL',         # Both speech and ingestion
+#     'eye': 'PERCEPTION'       # Visual targeting
 # }
+
+# func_group = { # by coordination
+#     'toe': 'FOOT_COMPLEX',       # Toes work with ankles
+#     'finger': 'HAND_COMPLEX',    # Fingers work with wrist
+#     'ankle': 'FOOT_COMPLEX',     # Ankle works with toe, leg
+#     'wrist': 'HAND_COMPLEX',     # Wrist works with fingers, forearm
+#     'leftleg': 'POSTURAL',       # Bilateral leg coordination
+#     'rightleg': 'POSTURAL',      # Bilateral leg coordination
+#     'forearm': 'ARM_CHAIN',      # Linked with upper arm and wrist
+#     'upperarm': 'ARM_CHAIN',     # Works with shoulder, forearm
+#     'jaw': 'VOCAL_ARTICULATORY', # Speech production with lips/tongue
+#     'lip': 'VOCAL_ARTICULATORY', # Articulation with jaw/tongue
+#     'tongue': 'VOCAL_ARTICULATORY', # Works with lips/jaw for speech
+#     'eye': 'VISUO_MOTOR'         # Eye-hand coordination
+# }
+
+# func_group = { # by task
+#     'toe': 'PRECISION_LOWER',    # Fine control of foot placement
+#     'finger': 'PRECISION_UPPER', # Detailed manipulation
+#     'ankle': 'STABILITY_LOWER',  # Lower limb stability
+#     'wrist': 'STABILITY_UPPER',  # Upper limb stability
+#     'leftleg': 'POWER_LOWER',    # Force generation/support
+#     'rightleg': 'POWER_LOWER',   # Force generation/support
+#     'forearm': 'POWER_UPPER',    # Force application
+#     'upperarm': 'POWER_UPPER',   # Force application
+#     'jaw': 'CONSUMPTIVE',        # Food processing
+#     'lip': 'EXPRESSIVE',         # Emotional display
+#     'tongue': 'SENSORY_ORAL',    # Taste and texture sensing
+#     'eye': 'SENSORY_VISUAL'      # Visual information
+# }
+
 func_rdm = np.zeros((len(parts), len(parts)))
 for i, p1 in enumerate(parts):
     for j, p2 in enumerate(parts):
