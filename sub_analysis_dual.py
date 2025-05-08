@@ -20,9 +20,7 @@ bids_root   = pathlib.Path('.')
 first_sub   = 'sub-01'
 events_path = bids_root / first_sub / 'ses-1' / 'func' / f'{first_sub}_ses-1_task-motor_run-01_events.tsv'
 
-# results_dir = pathlib.Path('results/coordination')
-# results_dir.mkdir(exist_ok=True)
-results_dir = pathlib.Path('results/task')
+results_dir = pathlib.Path('results/goal_dual')
 results_dir.mkdir(exist_ok=True)
 
 # body parts 
@@ -47,84 +45,62 @@ coords = {
     'toe':0,
     'ankle':1,
     'leftleg':2,
-    'rightleg':2.5,
-    'wrist':3.7,
-    'forearm':3.4,
-    'upperarm':3,
-    'finger':4,
-    'jaw':5,
-    'lip':5.2,
-    'tongue':5.5,
-    'eye':6
+    'rightleg':2.1,
+    'finger': 4,
+    'wrist': 3.6,
+    'forearm': 3.3,
+    'upperarm': 3,
+    'jaw': 5.0,
+    'lip': 5.1,
+    'tongue': 5.2,
+    'eye':5.5
 }
 dist_mat = squareform(pdist([[coords[p]] for p in parts]))
 adjacency_rdm = dist_mat / dist_mat.max()
 
 # functional groups to func RDM
+
+# coordination 
 # func_group = {
-#     'toe':'DFM',
-#     'finger':'DFM',
-#     'ankle':'MJA',
-#     'wrist':'MJA',
-#     'leftleg':'PLM',
-#     'rightleg':'PLM',
-#     'forearm':'PLM',
-#     'upperarm':'PLM',
-#     'jaw':'OFC',
-#     'lip':'OFC',
-#     'tongue':'OFC',
-#     'eye':'TOR'
+#     'toe': ['FOOT_COMPLEX'],
+#     'finger': ['HAND_COMPLEX'],
+#     'ankle': ['FOOT_COMPLEX'],
+#     'wrist': ['HAND_COMPLEX'],
+#     'leftleg': ['POSTURAL'],
+#     'rightleg': ['POSTURAL'],
+#     'forearm': ['HAND_COMPLEX', 'ARM_CHAIN'],  # dual membership
+#     'upperarm': ['ARM_CHAIN'],
+#     'jaw': ['VOCAL_ARTICULATORY'],
+#     'lip': ['VOCAL_ARTICULATORY'],
+#     'tongue': ['VOCAL_ARTICULATORY'],
+#     'eye': ['VISUO_MOTOR' ]
 # }
 
-# func_group = { # by goal
-#     'toe': 'BALANCE',        # Balance and stability
-#     'finger': 'MANIPULATION', # Object manipulation/precision
-#     'ankle': 'LOCOMOTION',    # Walking/running
-#     'wrist': 'MANIPULATION',  # Object handling/gesturing
-#     'leftleg': 'LOCOMOTION',  # Ambulation
-#     'rightleg': 'LOCOMOTION', # Ambulation
-#     'forearm': 'REACHING',    # Extending to objects
-#     'upperarm': 'REACHING',   # Gross arm positioning
-#     'jaw': 'INGESTION',       # Eating
-#     'lip': 'COMMUNICATION',   # Speech/expression
-#     'tongue': 'DUAL',         # Both speech and ingestion
-#     'eye': 'PERCEPTION'       # Visual targeting
-# }
-
-# func_group = { # by coordination
-#     'toe': 'FOOT_COMPLEX',       # Toes work with ankles
-#     'finger': 'HAND_COMPLEX',    # Fingers work with wrist
-#     'ankle': 'FOOT_COMPLEX',     # Ankle works with toe, leg
-#     'wrist': 'HAND_COMPLEX',     # Wrist works with fingers, forearm
-#     'leftleg': 'POSTURAL',       # Bilateral leg coordination
-#     'rightleg': 'POSTURAL',      # Bilateral leg coordination
-#     'forearm': 'ARM_CHAIN',      # Linked with upper arm and wrist
-#     'upperarm': 'ARM_CHAIN',     # Works with shoulder, forearm
-#     'jaw': 'VOCAL_ARTICULATORY', # Speech production with lips/tongue
-#     'lip': 'VOCAL_ARTICULATORY', # Articulation with jaw/tongue
-#     'tongue': 'VOCAL_ARTICULATORY', # Works with lips/jaw for speech
-#     'eye': 'VISUO_MOTOR'         # Eye-hand coordination
-# }
-
-func_group = { # by task
-    'toe': 'PRECISION_LOWER',    # Fine control of foot placement
-    'finger': 'PRECISION_UPPER', # Detailed manipulation
-    'ankle': 'STABILITY_LOWER',  # Lower limb stability
-    'wrist': 'STABILITY_UPPER',  # Upper limb stability
-    'leftleg': 'POWER_LOWER',    # Force generation/support
-    'rightleg': 'POWER_LOWER',   # Force generation/support
-    'forearm': 'POWER_UPPER',    # Force application
-    'upperarm': 'POWER_UPPER',   # Force application
-    'jaw': 'CONSUMPTIVE',        # Food processing
-    'lip': 'EXPRESSIVE',         # Emotional display
-    'tongue': 'SENSORY_ORAL',    # Taste and texture sensing
-    'eye': 'SENSORY_VISUAL'      # Visual information
+func_group = {
+    'toe': ['BALANCE', 'LOCOMOTION'],
+    'finger': ['MANIPULATION'],
+    'ankle': ['LOCOMOTION'],
+    'wrist': ['MANIPULATION'],
+    'leftleg': ['LOCOMOTION'],
+    'rightleg': ['LOCOMOTION'],
+    'forearm': ['REACHING'],
+    'upperarm': ['REACHING'],
+    'jaw': ['COMMUNICATION', 'INGESTION'],
+    'lip': ['COMMUNICATION'],
+    'tongue': ['COMMUNICATION', 'INGESTION'],
+    'eye': ['PERCEPTION' ]
 }
+
+def share_group(g1, g2):
+    return bool(set(g1).intersection(g2))
 
 func_rdm = np.zeros((len(parts), len(parts)))
 for i, p1 in enumerate(parts):
     for j, p2 in enumerate(parts):
-        func_rdm[i, j] = float(func_group[p1] != func_group[p2])
+        g1 = func_group[p1] if isinstance(func_group[p1], list) else [func_group[p1]]
+        g2 = func_group[p2] if isinstance(func_group[p2], list) else [func_group[p2]]
+        func_rdm[i, j] = float(not share_group(g1, g2))
+
 
 # ROI masks using Glasser MMP atlas 
 def get_roi_masks():
@@ -317,18 +293,25 @@ for roi in summary['ROI']:
 #     'VOCAL_ARTICULATORY': 'orange',
 #     'VISUO_MOTOR': 'brown'
 # }
-# task
+# coordination
+# colors = {
+#     'FOOT_COMPLEX': 'red',
+#     'HAND_COMPLEX': 'blue',
+#     'POSTURAL': 'green',
+#     'ARM_CHAIN': 'purple',
+#     'VISUO_MOTOR': 'orange',
+#     'VOCAL_ARTICULATORY': 'teal',
+# }
+
+# goal
 colors = {
-    'PRECISION_LOWER': 'red',
-    'PRECISION_UPPER': 'blue',
-    'STABILITY_LOWER': 'green',
-    'STABILITY_UPPER': 'purple',
-    'POWER_LOWER': 'orange',
-    'POWER_UPPER': 'teal',
-    'CONSUMPTIVE': 'brown',
-    'EXPRESSIVE': 'pink',
-    'SENSORY_ORAL': 'gray',
-    'SENSORY_VISUAL': 'gold'
+    'BALANCE': 'red',
+    'LOCOMOTION': 'blue',
+    'MANIPULATION': 'green',
+    'REACHING': 'purple',
+    'COMMUNICATION': 'orange',
+    'INGESTION': 'teal',
+    'PERCEPTION': 'brown',
 }
 
 # colors = { 'FOOT_JOINT': 'red', 'VISUAL_CONTROL': 'blue', 'HAND_FINE': 'green', 'ARM_CONTROL' :  'purble', 'FACE_CONTROL':'orage', 'LEG_CONTROL' : 'black', 'FOOT_FINE': 'grey', 'ORAL_CONTROL': 'yellow', 'HAND_JOINT': 'pink' }
@@ -337,8 +320,11 @@ for roi, rdm in avg_rdms.items():
     coords2d = MDS(n_components=2, dissimilarity='precomputed', random_state=0).fit_transform(rdm)
     plt.figure(figsize=(6,6))
     for i, part in enumerate(parts):
-        plt.scatter(coords2d[i,0], coords2d[i,1], color=colors[func_group[part]],
-                    edgecolor='k', s=150)
+        groups = func_group[part] if isinstance(func_group[part], list) else [func_group[part]]
+        # pick the first group for visualization — or design an averaging strategy
+        plt.scatter(coords2d[i,0], coords2d[i,1], color=colors[groups[0]],
+            edgecolor='k', s=150)
+
         plt.text(coords2d[i,0], coords2d[i,1], part, ha='center', va='center')
     patches = [Patch(facecolor=c, label=g) for g,c in colors.items()]
     plt.legend(handles=patches, title='Func Groups')
@@ -439,8 +425,14 @@ for roi, rdm in avg_rdms.items():
     coords2d = MDS(n_components=2, dissimilarity='precomputed', random_state=0).fit_transform(rdm)
     plt.figure(figsize=(6,6))
     for i, part in enumerate(parts):
-        plt.scatter(coords2d[i,0], coords2d[i,1], color=colors[func_group[part]],
-                    edgecolor='k', s=150)
+        # plt.scatter(coords2d[i,0], coords2d[i,1], color=colors[func_group[part]],
+        #             edgecolor='k', s=150)
+        groups = func_group[part]
+        if not isinstance(groups, list):
+          groups = [groups]
+        group = groups[0]  # or choose based on priority or custom rule
+        plt.scatter(coords2d[i,0], coords2d[i,1], color=colors[group], edgecolor='k', s=150)
+
         plt.text(coords2d[i,0], coords2d[i,1], part, ha='center', va='center')
     
     # Add the similarity metrics to the plot
