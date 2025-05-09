@@ -1,14 +1,11 @@
 
-To dowload data, run git annex get . in \derivatives\cifitify
+To download data, run git annex get . in \derivatives\cifitify (it has been pre-linked to this repo)
 To run full analysis run ./sub_analysis (for single groupings) or .\sub_analysis_dual (for dual groupings)
 To change functional groups, comment and uncomment group of interest - code will run one the single uncommented fun_group
+All results go to \results and are categorized by functional grouping
 
 
-
-
-
-
-
+Data Information:
 
 # An fMRI dataset for whole-body somatotopic mapping in humans 
 (Data: https://openneuro.org/datasets/ds004044/versions/2.0.3)
